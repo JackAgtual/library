@@ -1,0 +1,16 @@
+body {
+    font-family: 'Cabin', sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    color: white;
+    height: 100vh;
+    display: grid;
+    grid-template: min-content 1fr / 3fr 1fr;
+}
+
+h1 {
+    grid-area: 1 / 1 / 1 / -1;
+    place-self: center;
+}
+
