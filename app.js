@@ -14,6 +14,9 @@ const addBookToLibrary = (...arguments) => library.push(new Book(...arguments));
 const renderLibrary = () => {
     const libDiv = document.querySelector('.books');
 
+    // reset library each time you render
+    libDiv.innerHTML = ''; 
+
     library.map(bookObj => {
         const book = document.createElement('div');
         book.classList.add('book');
@@ -28,7 +31,19 @@ const renderLibrary = () => {
 
 }
 
-addBookToLibrary('title1', 'author1', 3, false);
-addBookToLibrary('title2', 'author2', 4, true);
+const form = document.querySelector('#add-book');
+form.addEventListener('submit', e => {
+    e.preventDefault(); // prevents page refresh
+    
+    addBookToLibrary(
+        form.elements.namedItem('title').value,
+        form.elements.namedItem('author').value,
+        form.elements.namedItem('numPages').value,
+        form.elements.namedItem('read').checked
+    );
 
-renderLibrary();
+    // reset form
+    form.reset();
+
+    renderLibrary();
+});
