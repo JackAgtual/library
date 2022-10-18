@@ -1,3 +1,7 @@
+:root {
+    --tile-len: 300px;
+}
+
 body {
     font-family: 'Cabin', sans-serif;
     background-color: black;
@@ -34,8 +38,9 @@ form button {
 .books {
     display: grid;
     gap: 30px;
-    grid-template-columns: repeat(auto-fit, 300px);
-    grid-template-rows: minmax(min-content, 200px);
+    grid-template-columns: repeat(auto-fit, var(--tile-len));
+    grid-auto-rows: var(--tile-len);
+    justify-content: center;
 }
 
 .book {
