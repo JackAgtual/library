@@ -2,7 +2,7 @@ body {
     font-family: 'Cabin', sans-serif;
     background-color: black;
     margin: 0;
-    padding: 0;
+    padding: 0 30px;
     color: white;
     height: 100vh;
     display: grid;
@@ -14,3 +14,14 @@ h1 {
     place-self: center;
 }
 
+.books {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, 200px);
+    grid-template-rows: minmax(min-content, 200px);
+}
+
+.book {
+    background-color: white;
+    color: black;
+}
