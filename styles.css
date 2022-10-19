@@ -1,5 +1,6 @@
 :root {
     --tile-len: 300px;
+    --blue-accent: rgb(0, 208, 255);
 }
 
 body {
@@ -46,4 +47,20 @@ form button {
 .book {
     background-color: white;
     color: black;
+    padding: 20px;
+    padding-left: 30px;
+    border-radius: 20px;
+}
+
+.book button {
+    border: none;
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-color: var(--blue-accent);
+    font-weight: bold;
+}
+
+.book.unread {
+    border-left: 20px solid var(--blue-accent);
+    padding-left: 10px;
 }

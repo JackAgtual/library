@@ -21,9 +21,19 @@ const renderLibrary = () => {
         const book = document.createElement('div');
         book.classList.add('book');
 
+        let btnTxt;
+        if (bookObj.read) {
+            btnTxt = 'Read again';
+        } else {
+            btnTxt = 'Finished reading';
+            book.classList.add('unread');
+        }
+        
         book.innerHTML = `
             <h3 class="title">${bookObj.title}</h3>
-            <p>${bookObj.author}</p>
+            <p>Author: ${bookObj.author}</p>
+            <p>Page count: ${bookObj.numPages}</p>
+            <button>${btnTxt}</button>
             `;
 
         libDiv.appendChild(book);
@@ -34,7 +44,7 @@ const renderLibrary = () => {
 const form = document.querySelector('#add-book');
 form.addEventListener('submit', e => {
     e.preventDefault(); // prevents page refresh
-    
+
     addBookToLibrary(
         form.elements.namedItem('title').value,
         form.elements.namedItem('author').value,
