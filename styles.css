@@ -12,6 +12,7 @@ body {
     height: 100vh;
     display: grid;
     grid-template: min-content 1fr / 3fr 1fr;
+    height: fit-content;
 }
 
 h1 {
@@ -34,6 +35,12 @@ form button {
     border-radius: 3px;
     padding: 10px 0;
     border: none;
+}
+
+.new-book {
+    position: sticky;
+    align-self: start;
+    top: 1rem
 }
 
 .books {
