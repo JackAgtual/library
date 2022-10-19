@@ -1,4 +1,5 @@
 let library = [];
+const READ_BTN_CLASS = 'unread';
 
 class Book {
     constructor(title, author, numPages, read) {
@@ -10,6 +11,30 @@ class Book {
 }
 
 const addBookToLibrary = (...arguments) => library.push(new Book(...arguments));
+
+const toggleReadBtnOnBook = book => {
+    // get button on book
+    let btn;
+    for (let i = 0; i < book.childNodes.length; i ++) {
+        if (book.childNodes[i].tagName === 'BUTTON') {
+            btn = book.childNodes[i];
+            break;
+        }
+    }
+        
+    btn.addEventListener('click', () => {
+        // get current statue of btn 
+        if ([...btn.parentElement.classList].includes(READ_BTN_CLASS)) {
+            // going from unread to read state
+            btn.innerText = 'Read again';
+        } else {
+            btn.innerText = 'Finished reading';
+        }
+        
+        // toggle read state
+        btn.parentElement.classList.toggle(READ_BTN_CLASS);
+    });
+};
 
 const renderLibrary = () => {
     const libDiv = document.querySelector('.books');
@@ -35,11 +60,14 @@ const renderLibrary = () => {
             <p>Page count: ${bookObj.numPages}</p>
             <button>${btnTxt}</button>
             `;
+        
+        // add event listener to toggle read btn
+        toggleReadBtnOnBook(book);
 
         libDiv.appendChild(book);
     });
 
-}
+};
 
 const form = document.querySelector('#add-book');
 form.addEventListener('submit', e => {
