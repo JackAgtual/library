@@ -59,6 +59,7 @@ const renderLibrary = () => {
             <p>Author: ${bookObj.author}</p>
             <p>Page count: ${bookObj.numPages}</p>
             <button>${btnTxt}</button>
+            <button>Remove from library</button>
             `;
         
         // add event listener to toggle read btn
