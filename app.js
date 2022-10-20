@@ -12,28 +12,49 @@ class Book {
 
 const addBookToLibrary = (...arguments) => library.push(new Book(...arguments));
 
+const removeFromLibrary = idx => {
+    library.splice(idx, 1);
+    renderLibrary();
+};
+
 const toggleReadBtnOnBook = book => {
     // get button on book
     let btn;
+    let btnCnt = 0;
     for (let i = 0; i < book.childNodes.length; i ++) {
-        if (book.childNodes[i].tagName === 'BUTTON') {
-            btn = book.childNodes[i];
-            break;
+        if (book.childNodes[i].tagName !== 'BUTTON') continue;
+
+        if ( [...book.childNodes[i].classList].includes('toggle')) {
+            toggleBtn = book.childNodes[i];
+            btnCnt++;
+        } else if ([...book.childNodes[i].classList].includes('remove')) {
+            removeBtn = book.childNodes[i];
+            btnCnt++;
         }
+
+        if (btnCnt >= 2) break;
     }
-        
-    btn.addEventListener('click', () => {
-        // get current statue of btn 
-        if ([...btn.parentElement.classList].includes(READ_BTN_CLASS)) {
+
+    // toggle button
+    toggleBtn.addEventListener('click', () => {
+        // get current statue of toggleBtn 
+        if ([...toggleBtn.parentElement.classList].includes(READ_BTN_CLASS)) {
             // going from unread to read state
-            btn.innerText = 'Read again';
+            toggleBtn.innerText = 'Read again';
         } else {
-            btn.innerText = 'Finished reading';
+            toggleBtn.innerText = 'Finished reading';
         }
         
         // toggle read state
-        btn.parentElement.classList.toggle(READ_BTN_CLASS);
+        toggleBtn.parentElement.classList.toggle(READ_BTN_CLASS);
     });
+
+    // remove button
+    removeBtn.addEventListener('click', () => {
+        const rmIdx = Number(removeBtn.parentElement.dataset.idx) - 1;
+        removeFromLibrary(rmIdx);
+    });
+
 };
 
 const renderLibrary = () => {
@@ -42,7 +63,7 @@ const renderLibrary = () => {
     // reset library each time you render
     libDiv.innerHTML = ''; 
 
-    library.map(bookObj => {
+    library.forEach((bookObj, idx) => {
         const book = document.createElement('div');
         book.classList.add('book');
 
@@ -58,10 +79,13 @@ const renderLibrary = () => {
             <h3 class="title">${bookObj.title}</h3>
             <p>Author: ${bookObj.author}</p>
             <p>Page count: ${bookObj.numPages}</p>
-            <button>${btnTxt}</button>
-            <button>Remove from library</button>
+            <button class="toggle">${btnTxt}</button>
+            <button class="remove">Remove from library</button>
             `;
         
+        // record idx of book in library
+        book.setAttribute("data-idx", idx.toString());
+
         // add event listener to toggle read btn
         toggleReadBtnOnBook(book);
 
@@ -84,5 +108,5 @@ form.addEventListener('submit', e => {
     // reset form
     form.reset();
 
-    renderLibrary();
+    renderLibrary(); // rendering library every time book is added or removed (inefficient)
 });
