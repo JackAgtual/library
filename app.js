@@ -32,8 +32,8 @@ const renderLibrary = () => {
             <h3 class="title">${bookObj.title}</h3>
             <p>Author: ${bookObj.author}</p>
             <p>Page count: ${bookObj.numPages}</p>
-            <button class="toggle">${btnTxt}</button>
-            <button class="remove">Remove from library</button>
+            <button class="toggle">${btnTxt} ${bookObj.title}</button>
+            <button class="remove">Remove from library ${bookObj.title}</button>
             `;
         
         // record idx of book in library
@@ -57,7 +57,8 @@ const removeFromLibrary = idx => {
 // read / unread button
 const toggleReadBtnOnBook = book => {
     // get button on book
-    let btn;
+    let toggleBtn;
+    let removeBtn;
     let btnCnt = 0;
     for (let i = 0; i < book.childNodes.length; i ++) {
         if (book.childNodes[i].tagName !== 'BUTTON') continue;
@@ -89,7 +90,7 @@ const toggleReadBtnOnBook = book => {
 
     // remove button
     removeBtn.addEventListener('click', () => {
-        const rmIdx = Number(removeBtn.parentElement.dataset.idx) - 1;
+        const rmIdx = Number(removeBtn.parentElement.dataset.idx);
         removeFromLibrary(rmIdx);
     });
 
