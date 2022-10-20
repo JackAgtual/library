@@ -15,6 +15,15 @@ body {
     height: fit-content;
 }
 
+button {
+    background-color: var(--blue-accent);
+    border: none;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 3rem;
+    padding: 10px 30px;
+}
+
 h1 {
     grid-area: 1 / 1 / 1 / -1;
     place-self: center;
@@ -64,15 +73,6 @@ form button {
 
 .book > * {
     margin: 0;
-}
-
-.book button {
-    border: none;
-    padding: 10px 30px;
-    border-radius: 10px;
-    background-color: var(--blue-accent);
-    font-weight: bold;
-    height: 3rem;
 }
 
 .book.unread {
