@@ -10,6 +10,43 @@ class Book {
     }
 }
 
+const renderLibrary = () => {
+    const libDiv = document.querySelector('.books');
+
+    // reset library each time you render
+    libDiv.innerHTML = ''; 
+
+    library.forEach((bookObj, idx) => {
+        const book = document.createElement('div');
+        book.classList.add('book');
+
+        let btnTxt;
+        if (bookObj.read) {
+            btnTxt = 'Read again';
+        } else {
+            btnTxt = 'Finished reading';
+            book.classList.add('unread');
+        }
+        
+        book.innerHTML = `
+            <h3 class="title">${bookObj.title}</h3>
+            <p>Author: ${bookObj.author}</p>
+            <p>Page count: ${bookObj.numPages}</p>
+            <button class="toggle">${btnTxt}</button>
+            <button class="remove">Remove from library</button>
+            `;
+        
+        // record idx of book in library
+        book.setAttribute("data-idx", idx.toString());
+
+        // add event listener to toggle read btn
+        toggleReadBtnOnBook(book);
+
+        libDiv.appendChild(book);
+    });
+
+};
+
 const addBookToLibrary = (...arguments) => library.push(new Book(...arguments));
 
 const removeFromLibrary = idx => {
@@ -17,6 +54,7 @@ const removeFromLibrary = idx => {
     renderLibrary();
 };
 
+// read / unread button
 const toggleReadBtnOnBook = book => {
     // get button on book
     let btn;
@@ -57,43 +95,7 @@ const toggleReadBtnOnBook = book => {
 
 };
 
-const renderLibrary = () => {
-    const libDiv = document.querySelector('.books');
-
-    // reset library each time you render
-    libDiv.innerHTML = ''; 
-
-    library.forEach((bookObj, idx) => {
-        const book = document.createElement('div');
-        book.classList.add('book');
-
-        let btnTxt;
-        if (bookObj.read) {
-            btnTxt = 'Read again';
-        } else {
-            btnTxt = 'Finished reading';
-            book.classList.add('unread');
-        }
-        
-        book.innerHTML = `
-            <h3 class="title">${bookObj.title}</h3>
-            <p>Author: ${bookObj.author}</p>
-            <p>Page count: ${bookObj.numPages}</p>
-            <button class="toggle">${btnTxt}</button>
-            <button class="remove">Remove from library</button>
-            `;
-        
-        // record idx of book in library
-        book.setAttribute("data-idx", idx.toString());
-
-        // add event listener to toggle read btn
-        toggleReadBtnOnBook(book);
-
-        libDiv.appendChild(book);
-    });
-
-};
-
+// add book to library
 const form = document.querySelector('#add-book');
 form.addEventListener('submit', e => {
     e.preventDefault(); // prevents page refresh
