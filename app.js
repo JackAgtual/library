@@ -20,6 +20,10 @@ const renderLibrary = () => {
         const book = document.createElement('div');
         book.classList.add('book');
 
+        // check read status
+        if (bookObj.read) book.classList.remove('unread');
+        else              book.classList.add('unread');
+
         let btnTxt;
         if (bookObj.read) {
             btnTxt = 'Read again';
@@ -86,6 +90,10 @@ const toggleReadBtnOnBook = book => {
         
         // toggle read state
         toggleBtn.parentElement.classList.toggle(READ_BTN_CLASS);
+        
+        // save toggle state to bookObj in library
+        const bookIdx = Number(toggleBtn.parentElement.dataset.idx);
+        library[bookIdx].read = !library[bookIdx].read;
     });
 
     // remove button
@@ -93,7 +101,6 @@ const toggleReadBtnOnBook = book => {
         const rmIdx = Number(removeBtn.parentElement.dataset.idx);
         removeFromLibrary(rmIdx);
     });
-
 };
 
 // add book to library
@@ -110,7 +117,6 @@ form.addEventListener('submit', e => {
 
     // reset form
     form.reset();
-
     renderLibrary(); // rendering library every time book is added or removed (inefficient)
 });
 
