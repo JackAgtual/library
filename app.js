@@ -113,3 +113,13 @@ form.addEventListener('submit', e => {
 
     renderLibrary(); // rendering library every time book is added or removed (inefficient)
 });
+
+// modal
+const modal = document.querySelector('dialog.modal');
+const openModal = document.querySelector('.open-modal');
+const closeModal = document.querySelectorAll('.close-modal');
+
+openModal.addEventListener('click', () => modal.showModal());
+closeModal.forEach(btn => {
+    btn.addEventListener('click', () => modal.close());
+});
