@@ -36,8 +36,8 @@ const renderLibrary = () => {
             <h3 class="title">${bookObj.title}</h3>
             <p>Author: ${bookObj.author}</p>
             <p>Page count: ${bookObj.numPages}</p>
-            <button class="toggle">${btnTxt} ${bookObj.title}</button>
-            <button class="remove">Remove from library ${bookObj.title}</button>
+            <button class="toggle">${btnTxt}</button>
+            <button class="remove">Remove from library</button>
             `;
         
         // record idx of book in library
